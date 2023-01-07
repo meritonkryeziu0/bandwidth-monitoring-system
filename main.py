@@ -69,14 +69,24 @@ class APP:
         self.bytes_recv = net_io_counters().bytes_recv
         self.bytes_sent = net_io_counters().bytes_sent
 
+        download = (self.bytes_recv - self.bytes_recv_old) / (1024 ** 2)
+        upload = (self.bytes_sent - self.bytes_sent_old) / (1024 ** 2)
+        dt = datetime.now()
+
         self.download_speed = humanize.naturalsize(self.bytes_recv - self.bytes_recv_old)
         self.upload_speed = humanize.naturalsize(self.bytes_sent - self.bytes_sent_old)
-
+        
+    def update_window(self):
+        self.update_values()
+        self.labels["download"].config(text=self.download_speed)
+        self.labels["upload"].config(text=self.upload_speed)
+        self.tk.after(1000, self.update_window)
+        
 if __name__ == '__main__':
     print("Its working!")
     window = Tk()
     app = APP(window)
     app.set_window_properties()
-    app.update_values()
+    app.update_window()
     app.setup()
     window.mainloop()
