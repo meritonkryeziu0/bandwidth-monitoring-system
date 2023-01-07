@@ -1,7 +1,8 @@
 from datetime import datetime
+from psutil import net_io_counters
 from tkinter import *
 from PIL import ImageTk, Image
-
+import humanize
 
 def export_action():
     # TODO implement export_action() 
@@ -63,9 +64,13 @@ class APP:
         self.window.resizable(False, False)
 
     def update_values(self):
-        print("called!")
-        self.frame.after(1000, self.update_values)
+        self.bytes_recv_old = self.bytes_recv
+        self.bytes_sent_old = self.bytes_sent
+        self.bytes_recv = net_io_counters().bytes_recv
+        self.bytes_sent = net_io_counters().bytes_sent
 
+        self.download_speed = humanize.naturalsize(self.bytes_recv - self.bytes_recv_old)
+        self.upload_speed = humanize.naturalsize(self.bytes_sent - self.bytes_sent_old)
 
 if __name__ == '__main__':
     print("Its working!")
