@@ -3,6 +3,8 @@ from psutil import net_io_counters
 from tkinter import *
 from PIL import ImageTk, Image
 import humanize
+from to_csv import ExportingToCSV
+
 
 def export_action():
     # TODO implement export_action()
@@ -52,14 +54,14 @@ class APP:
                                activebackground="#0e4373", command=close_action)
 
     def setup(self):
-        self.photo.pack()
-        self.labels["download-header"].pack()
+        self.photo.pack(expand=1)
+        self.labels["download-header"].pack(expand=1)
         self.labels["download"].pack()
-        self.labels["upload-header"].pack()
+        self.labels["upload-header"].pack(expand=1)
         self.labels["upload"].pack()
-        self.exportBtn.pack()
-        self.visualizeBtn.pack()
-        self.closeBtn.pack()
+        self.exportBtn.pack(expand=1)
+        self.visualizeBtn.pack(expand=1)
+        self.closeBtn.pack(expand=1)
         self.tk.update()
 
     def set_window_properties(self):
@@ -73,8 +75,14 @@ class APP:
         self.bytes_recv = net_io_counters().bytes_recv
         self.bytes_sent = net_io_counters().bytes_sent
 
-        self.download_speed = humanize.naturalsize(self.bytes_recv - self.bytes_recv_old)
-        self.upload_speed = humanize.naturalsize(self.bytes_sent - self.bytes_sent_old)
+        diff_recv = self.bytes_recv - self.bytes_recv_old
+        diff_sent = self.bytes_sent - self.bytes_sent_old
+
+        self.download_speed = humanize.naturalsize(diff_recv)
+        self.upload_speed = humanize.naturalsize(diff_sent)
+
+        dt = datetime.now()
+        ExportingToCSV.write(dt.strftime('%Y/%m/%d %X'), diff_recv / (1024 ** 2), diff_sent / (1024 ** 2))
 
     def update_window(self):
         self.update_values()
