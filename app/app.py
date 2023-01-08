@@ -45,11 +45,11 @@ class APP:
                        "upload-header": Label(text="Upload Speed", font="Arial 13 bold"),
                        "upload": Label(text="Measuring...", font="Arial 11 bold", fg="#0e4373", pady=5), }
 
-        self.exportBtn = Button(tk, text="Export", font="Arial 9 bold", padx=20, background="#145DA0",
+        self.exportBtn = Button(tk, text="Export", font="Arial 9 bold", padx=19, background="#145DA0",
                                 foreground="white", activebackground="#0e4373", command=export_action)
-        self.visualizeBtn = Button(tk, text="Visualize", font="Arial 9 bold", padx=12, background="#145DA0",
+        self.visualizeBtn = Button(tk, text="Visualize", font="Arial 9 bold", padx=13, background="#145DA0",
                                    foreground="white", activebackground="#0e4373", command=visualize_action)
-        self.closeBtn = Button(tk, text="Close", font="Arial 9 bold", padx=21, background="#145DA0", foreground="white",
+        self.closeBtn = Button(tk, text="Close", font="Arial 9 bold", padx=22, background="#145DA0", foreground="white",
                                activebackground="#0e4373", command=close_action)
 
     def setup(self):
