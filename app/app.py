@@ -2,23 +2,22 @@ from datetime import datetime
 from psutil import net_io_counters
 from tkinter import *
 from PIL import ImageTk, Image
-import humanize
+import shutil, os, humanize
 from to_csv import ExportingToCSV
+import visualize.VisualizeLoggedData as visualize
 
 
 def export_action():
-    # TODO implement export_action()
-    pass
+    shutil.copy(".tmp.csv", "log.csv")
 
 
 def visualize_action():
-    # TODO implement visualize_action()
-    pass
+    visualize.plot_graph()
 
 
 def close_action():
-    # TODO implement close_action()
-    pass
+    os.remove(".tmp.csv")
+    exit(0)
 
 
 class APP:
