@@ -1,3 +1,4 @@
+![Bandwidth Monitoring System](photos/screenshot.png)
 ## Bandwidth Monitoring System
 This project is a simple GUI application that monitors and logs the download and upload speeds of a computer's network connection. It provides a real-time display of the current speeds and allows the user to export and visualize the logged data.
 ### Usage
